@@ -1,5 +1,3 @@
-
-
 export function isIncognito(callback){
     var fs = window.RequestFileSystem || window.webkitRequestFileSystem;
 

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Lightbox } from 'primereact/lightbox';
@@ -13,7 +13,7 @@ import {
 	Container, Row, Col, CardTitle, CardText
 } from 'reactstrap';
 
-const App = ({person, setInformation, submitInformationRequested}) => {
+const App = ({ person, setInformation, submitInformationRequested }) => {
 	useEffect(() => {
 		setInformation();
 		submitInformationRequested();
@@ -61,12 +61,12 @@ const App = ({person, setInformation, submitInformationRequested}) => {
 }
 
 export default connect(
-    (state) => ({
-        person: fromState.Home.getPerson(state),
-    }),
-    (dispatch) => bindActionCreators({
+	(state) => ({
+		person: fromState.Home.getPerson(state),
+	}),
+	(dispatch) => bindActionCreators({
 		setInformation,
 		submitInformationRequested,
-    }, dispatch),
+	}, dispatch),
 )(App);
 
