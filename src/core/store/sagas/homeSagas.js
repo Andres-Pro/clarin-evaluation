@@ -6,9 +6,7 @@ import map from 'lodash/map';
 
 export function* submitInfoRequested() {
     try {
-        console.log('sagas');
         const data = yield select(fromState.Home.getInformation);
-        console.log(data);
         const form = yield new FormData();
         map(data, (value, key) => {
             form.append(key, value);
