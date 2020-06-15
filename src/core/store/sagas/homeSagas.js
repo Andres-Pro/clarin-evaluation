@@ -1,22 +1,21 @@
-/* eslint-disable no-unused-vars */
 import fromState from 'core/store/selectors';
 import {call, select} from 'redux-saga/effects';
 import Swal from 'sweetalert2'
 import map from 'lodash/map';
-import get from 'lodash/get';
 
-export function* submitInfoRequested(action) {
-    const data = yield select(fromState.Home.getInformation);
-    const resp = yield select(fromState.Home.getResponse);
+
+export function* submitInfoRequested() {
     try {
-        const url = 'unaUrlDePrueba'
+        console.log('sagas');
+        const data = yield select(fromState.Home.getInformation);
+        console.log(data);
         const form = yield new FormData();
         map(data, (value, key) => {
             form.append(key, value);
         })
-        const response = yield call(
+        yield call(
             fetch,
-            `${url}`,
+            `una url`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,15 +24,17 @@ export function* submitInfoRequested(action) {
                 body: form,
             },
         );
-        console.log(resp);
         return Swal.fire({
             icon: 'success',
-            text: `Usuario: ${get(resp, 'data.id')}, Modo Incognito: ${get(resp, 'data.unknown')}, Referer: ${get(resp, 'data.referer')}`,
-            title: resp.message,
+            text: `${map(data, (value, key) =>`${key}: ${value} ` )}`,
+            title: 'Datos Guardados',
             confirmButtonText: 'Aceptar'
         })
-
     } catch (error) {
-
+        Swal.fire({
+            icon: 'success',
+            title: 'Error Inesperado Intente Nuevamente en unos Minutos',
+            confirmButtonText: 'Aceptar'
+        })
     }
 }

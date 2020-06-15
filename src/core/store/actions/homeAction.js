@@ -1,10 +1,11 @@
 import {
-    SET_INFORMATION,
+    UPDATE_CONTEXT_FORM,
     SUBMIT_INFORMATION_REQUESTED,
 } from 'core/store/types';
 
-export const setInformation = () => ({
-    type: SET_INFORMATION,
+export const updateContextForm = (payload) => ({
+    type: UPDATE_CONTEXT_FORM,
+    payload,
 });
 
 export const submitInformationRequested = () => ({

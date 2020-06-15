@@ -1,15 +1,15 @@
 import React from 'react';
 import { Row, Col, Container } from 'reactstrap';
 
-const Footer = () => {
+const Footer = ({child}) => {
     return (
         <footer>
             <Container>
                 <Row className="padding-top">
-                    <Col sm={{ offset: 4, size: 4 }}>
+                    <Col>
                         <p className="text-white text-center mt-4">
-                            Sistema de Prueba para Clarín
-                            </p>
+                            {child}
+                        </p>
                     </Col>
                 </Row>
             </Container>

@@ -1,41 +1,30 @@
 
 import person from 'api/mockedData'
-import uniqueId from 'lodash/uniqueId'
-import { isIncognito } from 'utils/helpers'
 import {
-    SET_INFORMATION,
+    UPDATE_CONTEXT_FORM,
     SUBMIT_INFORMATION_REQUESTED,
 } from 'core/store/types';
 
 const initialState = {
     person,
-    information: '',
+    information: {
+        browser: '',
+        device: '',
+        referer: '',
+        os: '',
+        fingerprint: '',
+    }
 };
 
 const form = (state = initialState, action) => {
     switch (action.type) {
-        case SET_INFORMATION: {
-            let unknown = false
-            const id = uniqueId('user_')
-            var referer = document.referrer;
-            isIncognito(function(itIs){
-                unknown = itIs;
-            });
-            localStorage.setItem('id', id);
+        case UPDATE_CONTEXT_FORM: {
+            const { key, value } = action.payload;
             return {
                 ...state,
                 information: {
-                    id,
-                    unknown,
-                    referer,
-                },
-                response: {
-                    data: {
-                        id,
-                        unknown,
-                        referer,
-                    },
-                    message: 'datos de trakeo guardados',
+                    ...state.information,
+                    [key]: value,
                 }
             };
         }
