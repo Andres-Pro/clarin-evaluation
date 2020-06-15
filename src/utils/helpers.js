@@ -1,10 +1,9 @@
 export function isPrivateMode() {
     return new Promise(function detect(resolve) {
-      var yes = function() { resolve(true); }; // is in private mode
-      var not = function() { resolve(false); }; // not in private mode
+      var yes = function() { resolve(true); };
+      var not = function() { resolve(false); };
 
       function detectChromeOpera() {
-        // https://developers.google.com/web/updates/2017/08/estimating-available-storage-space
         var isChromeOpera = /(?=.*(opera|chrome)).*/i.test(navigator.userAgent) && navigator.storage && navigator.storage.estimate;
         if (isChromeOpera) {
           navigator.storage.estimate().then(function(data) {
@@ -39,10 +38,6 @@ export function isPrivateMode() {
                 not();
               }
             } catch (_) {
-              // Safari only enables cookie in private mode
-              // if cookie is disabled, then all client side storage is disabled
-              // if all client side storage is disabled, then there is no point
-              // in using private mode
               navigator.cookieEnabled ? yes() : not();
             }
             return true;
@@ -65,15 +60,10 @@ export function isPrivateMode() {
         if (isEdgeIE10) yes();
         return !!isEdgeIE10;
       }
-
-      // when a browser is detected, it runs tests for that browser
-      // and skips pointless testing for other browsers.
       if (detectChromeOpera()) return;
       if (detectFirefox()) return;
       if (detectSafari()) return;
       if (detectEdgeIE10()) return;
-
-      // default navigation mode
       return not();
     });
   }

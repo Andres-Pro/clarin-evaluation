@@ -16,12 +16,11 @@ import  ContextHook from 'components/UsingContextHook '
 import fromState from 'core/store/selectors';
 import { submitInformationRequested } from 'core/store/actions'
 
-const Home = ({ person, submitInformationRequested }) => {
-    const handleClick = () => {return submitInformationRequested();}
-
+const Home = ({ person, user, submitInformationRequested }) => {
+	const handleClick = () => {return submitInformationRequested();}
 	return (
 		<>
-            <Header />
+            <Header user={user}/>
 			<Container className="root mt-4 mb-4">
                 <Row>
                     <Col className="float-right">
@@ -68,6 +67,7 @@ const Home = ({ person, submitInformationRequested }) => {
 export default connect(
 	(state) => ({
 		person: fromState.Home.getPerson(state),
+		user: state.home.information.fingerprint
 	}),
 	(dispatch) => bindActionCreators({
 		submitInformationRequested,

@@ -8,8 +8,15 @@ import { updateContextForm } from 'core/store/actions'
 
 const UsingContextHook  = ({updateContextForm}) => {
 	let i = false;
-	const { v4: uuidv4 } = require('uuid');
-    const fingerprint = uuidv4()
+	let fingerprint;
+	if (localStorage.getItem('fingerprint')) {
+		fingerprint = localStorage.getItem('fingerprint')
+	} else {
+		const { v4: uuidv4 } = require('uuid');
+		fingerprint = uuidv4()
+		localStorage.setItem('fingerprint', fingerprint);
+	}
+	const referer = document.referrer
     const {parser} = useContext(UAContext);
     const browser = get(parser.getBrowser(), 'name');
     const device = get(parser.getDevice(), 'type', 'computer');
@@ -17,7 +24,7 @@ const UsingContextHook  = ({updateContextForm}) => {
 	updateContextForm({key: 'browser', value: browser})
 	updateContextForm({key: 'device', value: device})
 	updateContextForm({key: 'os', value: os})
-	updateContextForm({key: 'referer', value: document.referrer})
+	updateContextForm({key: 'referer', value: referer})
 	updateContextForm({key: 'fingerprint', value: fingerprint})
 	isPrivateMode().then(function(result) {
 		if (result) i = true
@@ -25,7 +32,7 @@ const UsingContextHook  = ({updateContextForm}) => {
 	 })
 	return (
 		<>
-        	{`Context Information:, Browser: ${browser}, Device: ${device}, System: ${os}, Referer:${document.referrer} incognito: ${i} `}
+        	{`Context Information:, Browser: ${browser}, Device: ${device}, System: ${os}, Referer:${referer} incognito: ${i} `}
 			<br />
 			{`fingerPrint: ${fingerprint}`}
 		</>

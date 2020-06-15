@@ -10,13 +10,13 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({user}) => {
     return (
         <>
             <header className="bg">
                 <Container className="p-0 m-0  ml-auto mr-auto">
                     <Row className="p-0 m-0">
-                        <Col sm="12" className="p-0 m-0">
+                        <Col className="p-0 m-2">
                             <Navbar expand="md" className="p-0 m-0">
                                 <NavLink
                                     tag={Link}
@@ -25,8 +25,6 @@ const Header = () => {
                                 >
                                     <Media alt="aaaa" src="https://images.clarin.com/collections/static/ultimas-noticias-de-argentina-y-el-mundo-clarin.svg" />
                                 </NavLink>
-                                <Nav className="ml-auto" navbar />
-                                <div className="vl short"> </div>
                             </Navbar>
                         </Col>
                     </Row>
