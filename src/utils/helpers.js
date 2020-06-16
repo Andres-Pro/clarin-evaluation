@@ -27,6 +27,7 @@ export function isPrivateMode() {
       }
 
       function detectSafari() {
+        // eslint-disable-next-line no-useless-escape
         var isSafari = navigator.userAgent.match(/Version\/([0-9\._]+).*Safari/);
         if (isSafari) {
           var testLocalStorage = function() {

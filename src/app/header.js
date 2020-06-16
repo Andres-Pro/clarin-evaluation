@@ -2,7 +2,6 @@ import React from 'react';
 import {
     Media,
     Navbar,
-    Nav,
     NavLink,
     Container,
     Row,
